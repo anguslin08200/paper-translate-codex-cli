@@ -6,12 +6,17 @@ on:
 # CI 不持有 Codex 登入或 API 金鑰，也不需寫入儲存庫權限。
 permissions:
   contents: read
+# Windows runner 預設可能使用 cp1252；繁體輸出固定為 UTF-8。
+env:
+  PYTHONUTF8: '1'
 jobs:
   verify:
     runs-on: windows-latest
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'

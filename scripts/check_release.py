@@ -4,6 +4,7 @@ import re
 import subprocess
 import zipfile
 import argparse
+import sys
 
 # 新增發布檔案時必須明確更新清單；不使用遞迴複製工作資料夾。
 ROOT_FILES = {
@@ -40,6 +41,9 @@ def checked_files(root):
     return files
 
 if __name__ == "__main__":
+    # 本機與英文 Windows runner 都使用 UTF-8 顯示繁體診斷。
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser()
     parser.add_argument("--archive", type=Path)
     args = parser.parse_args()
