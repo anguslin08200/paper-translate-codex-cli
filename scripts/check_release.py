@@ -10,7 +10,7 @@ import sys
 ROOT_FILES = {
     "codex_account.py", "codex_batch.py", "codex_batch_transport.py",
     "codex_translate.py", "pdf_preview.py", "pdf_translate_gui.py",
-    "protected_translate.py", "qwen36_translate.py", "traditional_chinese.py", "terminology.py",
+    "protected_translate.py", "qwen36_translate.py", "traditional_chinese.py",
     "requirements.txt", "README.md", ".gitignore", "Install.ps1",
     "Translate-PDF.ps1", "Start-翻譯GUI.cmd", ".github/workflows/ci.yml",
     "scripts/check_release.py",

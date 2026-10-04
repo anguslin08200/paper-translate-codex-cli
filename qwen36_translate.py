@@ -4,7 +4,6 @@ import json
 import argparse
 import sys
 import urllib.request
-from terminology import ENGLISH_TERMS_POLICY
 
 
 def parse_args() -> argparse.Namespace:
@@ -43,9 +42,11 @@ def main() -> int:
                 "content": (
                     "You are a professional scientific translation engine. "
                     # Explicitly request Taiwan Traditional Chinese terminology and script.
-                    "Translate faithfully into Traditional Chinese as used in Taiwan. "
-                    + ENGLISH_TERMS_POLICY +
-                    "Preserve every formula, citation, XML/HTML "
+                    "Translate faithfully into Traditional Chinese as used in Taiwan. Keep technical "
+                    "proper nouns in English whenever practical, including model names, algorithms, "
+                    "architectures, datasets, metrics, standards, product names, and abbreviations. "
+                    "On first occurrence, a brief Chinese explanation followed by the English term in "
+                    "parentheses is allowed when useful. Preserve every formula, citation, XML/HTML "
                     "tag, and placeholder exactly. "
                     f"Use {args.effort} reasoning effort. Output only the translation."
                 ),

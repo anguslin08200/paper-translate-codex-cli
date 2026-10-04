@@ -16,7 +16,7 @@ import time
 
 from codex_translate import Store, TOKENS, split_source, update_status, validate
 
-BATCH_POLICY = "taiwan-science-batch-v5-english-terms"
+BATCH_POLICY = "taiwan-science-batch-v4"
 
 
 def validate_batch_output(source, output):
@@ -137,8 +137,7 @@ def translate_document(translator, docs, args, emit, session_factory=None):
     prepared, pending, values, aliases = [], [], {}, {}
     store = Store(args.cache)
     scope = scope_for(args, glossary)
-    # 術語政策改變後不可搬移舊中文術語快取；僅重用同一新政策的結果。
-    old_scopes = []
+    old_scopes = [scope_for(args, glossary, policy) for policy in ("taiwan-science-batch-v3", "taiwan-science-v2")]
     completed_batches, cache_hits, deduplicated, requests = 0, 0, 0, 0
     token_totals, usage_requests = {}, 0
 

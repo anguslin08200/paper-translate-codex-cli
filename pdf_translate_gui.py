@@ -23,7 +23,6 @@ from tkinter import filedialog, messagebox, ttk
 # Query official account metadata without reading login credentials.
 from codex_account import fetch_account_snapshot
 from traditional_chinese import to_traditional
-from terminology import ENGLISH_TERMS_POLICY
 
 
 APP_DIR = Path(__file__).resolve().parent
@@ -101,8 +100,10 @@ def quota_rows(snapshot: dict) -> list[tuple[str, float | None, str]]:
 # Keep technical terminology recognizable while translating prose for Taiwan readers.
 TRADITIONAL_TECHNICAL_PROMPT = (
     "Translate the prose into Traditional Chinese as used in Taiwan. "
-    + ENGLISH_TERMS_POLICY +
-    "Preserve formulas, symbols, citations, "
+    "Keep technical proper nouns in English whenever practical, including model names, "
+    "algorithms, architectures, datasets, metrics, standards, product names, and abbreviations. "
+    "On first occurrence, a brief Traditional Chinese explanation followed by the English term "
+    "in parentheses is allowed when it improves clarity. Preserve formulas, symbols, citations, "
     "tags, and placeholders exactly. Output only the translation."
 )
 

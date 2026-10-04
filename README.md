@@ -17,8 +17,6 @@ codex login
 
 選擇 PDF 與翻譯服務後開始翻譯。中文及中英雙語 PDF 輸出到輸入檔案旁；公式、圖表內的原始文字及英文專有名稱會保留。首次使用可能需下載版面模型與字型。
 
-中文負責連接與解釋，基礎技術詞及完整片語保留原文英文，例如 register、high-dimensional latent state、SSM、continuous-time、discrete-time、discretization、convolution 與 attention；不額外重複中文譯名。既有 PDF 不會自動改寫，新政策使用獨立快取。
-
 - **Codex**：啟動時自動讀取本機 CLI 帳號的可用模型及訂閱額度，也可按「重新整理模型／額度」。額度與其他 Codex 工作共用；讀取失敗顯示未知，不會假裝有額度。建議先用 low、標準檔位；並行可依帳號情況調整。
 - **DeepSeek**：在介面輸入自己的 API 金鑰及模型名稱，維持 API 計費。金鑰以 Windows DPAPI 加密存於目前使用者的本機設定，透過子程序環境傳遞，不放在啟動命令或 GitHub。
 - **本機模型**：自行安裝 Ollama，執行 `ollama pull <介面選定的模型>`。程式連線到 `127.0.0.1:11434`，不需要 Codex 或 DeepSeek 金鑰。
