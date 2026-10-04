@@ -1,0 +1,40 @@
+name: 離線檢查與發布包
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+# CI 不持有 Codex 登入或 API 金鑰，也不需寫入儲存庫權限。
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: 檢查發布內容
+        run: python scripts/check_release.py
+      - name: 安裝依賴
+        run: python -m pip install -r requirements.txt
+      - name: 執行離線測試
+        run: python -X utf8 -m unittest discover -s tests -v
+      - name: 檢查 PowerShell 語法
+        shell: pwsh
+        run: |
+          # 只解析安裝與翻譯腳本，不啟動模型或存取帳號。
+          Get-ChildItem *.ps1 | ForEach-Object {
+            $parseErrors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$null, [ref]$parseErrors) | Out-Null
+            if ($parseErrors) { throw ($parseErrors | Out-String) }
+          }
+      - name: 建立乾淨發布包
+        run: python scripts/check_release.py --archive dist/paper-translate-codex-cli.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: paper-translate-codex-cli
+          path: dist/paper-translate-codex-cli.zip
+          retention-days: 14

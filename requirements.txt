@@ -1,0 +1,5 @@
+# Pin the PDF internals patched by this project to the verified versions.
+pdf2zh-next==2.9.0
+babeldoc==0.6.2
+PyMuPDF==1.25.2
+opencc-python-reimplemented==0.1.7
