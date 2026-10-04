@@ -108,6 +108,12 @@ class _Process:
 
 
 class BatchTransportTests(unittest.TestCase):
+    def setUp(self):
+        # 離線協定測試不依賴開發者電腦的 Codex 安裝，也不需要 CI 登入。
+        command = patch.object(batch, "codex_command", return_value=["synthetic-codex"])
+        command.start()
+        self.addCleanup(command.stop)
+
     def test_explicit_speed_tier_overrides_host_settings(self):
         # Verify both directions so a globally enabled Fast setting cannot leak into Standard.
         for selected, native, enabled in (("standard", "default", "false"), ("fast", "priority", "true")):
